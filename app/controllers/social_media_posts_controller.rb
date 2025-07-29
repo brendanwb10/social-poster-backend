@@ -6,10 +6,10 @@ class SocialMediaPostsController < ApplicationController
   end
 
   def show
-    @social_media_post = SocialMediaPost.find_by(id: params[:id])
+    @social_media_post = SocialMediaPost.includes(:photos).find_by(id: params[:id])
 
     if @social_media_post
-      render json: @social_media_post
+      render json: @social_media_post, include: :photos
     else
       render json: :not_found
     end
